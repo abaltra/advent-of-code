@@ -34,15 +34,11 @@
 		messageQueue = append(messageQueue, c[0])
 
 		if len(queue) > 4 {
-			temp := make([]byte, 4)
-			copy(temp, queue[1:])
-			queue = temp
+			queue = queue[1:]
 		}
 
 		if len(messageQueue) > 14 {
-			temp := make([]byte, 14)
-			copy(temp, messageQueue[1:])
-			messageQueue = temp
+			messageQueue = messageQueue[1:]
 		}
 
 		if len(queue) == 4 && sopIndex == -1 {
