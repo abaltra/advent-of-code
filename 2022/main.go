@@ -6,6 +6,7 @@ import (
 	"github.com/abaltra/aoc2022/day3"
 	"github.com/abaltra/aoc2022/day4"
 	"github.com/abaltra/aoc2022/day5"
+	"github.com/abaltra/aoc2022/day6"
 )
 
 func main() {
@@ -14,4 +15,5 @@ func main() {
 	day3.Run()
 	day4.Run()
 	day5.Run()
+	day6.Run()
 }
