@@ -10,7 +10,7 @@ import (
 	"github.com/abaltra/aoc2022/day4"
 	"github.com/abaltra/aoc2022/day5"
 	"github.com/abaltra/aoc2022/day6"
-	//"github.com/abaltra/aoc2022/day7"
+	"github.com/abaltra/aoc2022/day7"
 )
 
 func readInput(path string) []string {
@@ -40,5 +40,5 @@ func main() {
 	day4.Run(readInput("./day4/input.txt"))
 	day5.Run(readInput("./day5/input.txt"))
 	day6.Run()
-	//day7.Run(readInput("./day7/input.txt"))
+	day7.Run(readInput("./day7/input.txt"))
 }
