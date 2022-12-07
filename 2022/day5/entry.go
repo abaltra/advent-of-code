@@ -1,30 +1,18 @@
 package day5
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 	"strconv"
 	"strings"
 )
 
-func Run() {
-	input, err := os.Open("./day5/input.txt")
-
+func Run(lines []string) {
 	stacks := make(map[int][]byte)
 	newStacks := make(map[int][]byte)
 
-	if err != nil {
-		panic(err)
-	}
-
-	filescanner := bufio.NewScanner(input)
-	filescanner.Split(bufio.ScanLines)
-
 	processingMoves := false
 	maxCrates := 0
-	for filescanner.Scan() {
-		l := filescanner.Text()
+	for _, l := range lines {
 
 		if l == "" {
 			processingMoves = true

@@ -1,9 +1,7 @@
 package day3
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 )
 
 func findDuplicates(set1 string, set2 string) []byte {
@@ -25,22 +23,13 @@ func findDuplicates(set1 string, set2 string) []byte {
 	return collisions
 }
 
-func Run() {
+func Run(lines []string) {
 
-	input, err := os.Open("./day3/input.txt")
-
-	if err != nil {
-		panic(err)
-	}
-
-	filescanner := bufio.NewScanner(input)
-	filescanner.Split(bufio.ScanLines)
 	score := 0
 	groupScore := 0
 
 	rucksackGroups := make([]string, 0)
-	for filescanner.Scan() {
-		rucksack := filescanner.Text()
+	for _, rucksack := range lines {
 		set1 := rucksack[0 : len(rucksack)/2]
 		set2 := rucksack[len(rucksack)/2:]
 

@@ -9,24 +9,24 @@ import (
 
 type LimitQueue struct {
 	values []byte
-	limit int
+	limit  int
 }
 
-func NewQueue (limit int) LimitQueue {
-	return LimitQueue {
-		limit: limit,
+func NewQueue(limit int) LimitQueue {
+	return LimitQueue{
+		limit:  limit,
 		values: make([]byte, 0),
 	}
 }
 
-func (q *LimitQueue) Push (v byte) {
+func (q *LimitQueue) Push(v byte) {
 	q.values = append(q.values, v)
 	if len(q.values) > q.limit {
 		q.values = q.values[1:]
 	}
 }
 
-func (q *LimitQueue) Pop () (byte, error) {
+func (q *LimitQueue) Pop() (byte, error) {
 	if len(q.values) == 0 {
 		return byte(0), errors.New("empty queue")
 	}
@@ -45,7 +45,7 @@ func (q LimitQueue) IsSizedSet() bool {
 	collisions := make(map[byte]int)
 
 	for _, value := range q.values {
-		collisions[value] ++
+		collisions[value]++
 		if collisions[value] > 1 {
 			return false
 		}
@@ -55,10 +55,9 @@ func (q LimitQueue) IsSizedSet() bool {
 }
 
 func Run() {
-  println("hello 6")
+	println("hello 6")
 
-  	
-  input, err := os.Open("./day6/input.txt")
+	input, err := os.Open("./day6/input.txt")
 
 	if err != nil {
 		panic(err)
@@ -95,23 +94,23 @@ func Run() {
 		}
 
 		if q.IsSizedSet() && sopIndex == -1 {
-			fmt.Printf("Found SOP marker: %s. Data starts at index %d\n", string(q.values), counter + 1)
+			fmt.Printf("Found SOP marker: %s. Data starts at index %d\n", string(q.values), counter+1)
 			sopIndex = counter + 1
 		}
 
 		if qMessage.IsSizedSet() && somIndex == -1 {
-			fmt.Printf("Found SOM marker: %s. Data starts at index %d\n", string(qMessage.values), counter + 1)
+			fmt.Printf("Found SOM marker: %s. Data starts at index %d\n", string(qMessage.values), counter+1)
 			somIndex = counter + 1
 		}
-  	counter ++
-  }
+		counter++
+	}
 }
 
 func areUnique(set []byte) bool {
 	collisions := make(map[byte]int)
 
 	for _, c := range set {
-		collisions[c] ++
+		collisions[c]++
 		if collisions[c] > 1 {
 			return false
 		}

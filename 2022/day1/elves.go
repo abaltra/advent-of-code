@@ -1,10 +1,8 @@
 package day1
 
 import (
-	"bufio"
 	"container/heap"
 	"fmt"
-	"os"
 	"strconv"
 )
 
@@ -33,15 +31,7 @@ func (h *ElfHeap) Pop() any {
 	return x
 }
 
-func Run() {
-	input, err := os.Open("./day1/input.txt")
-
-	if err != nil {
-		panic(err)
-	}
-
-	filescanner := bufio.NewScanner(input)
-	filescanner.Split(bufio.ScanLines)
+func Run(lines []string) {
 
 	highest_calorie_count := -1
 	elf_index := 0
@@ -50,8 +40,7 @@ func Run() {
 	heap.Init(&elf_heap)
 
 	running_count := 0
-	for filescanner.Scan() {
-		l := filescanner.Text()
+	for _, l := range lines {
 		if l == "" {
 			if running_count > highest_calorie_count {
 				highest_calorie_count = running_count
@@ -85,5 +74,4 @@ func Run() {
 		top_carried += elf.calories
 	}
 	fmt.Printf("Total carried by top 3: %v\n", top_carried)
-	input.Close()
 }

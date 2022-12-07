@@ -1,9 +1,7 @@
 package day4
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 	"strconv"
 	"strings"
 )
@@ -17,20 +15,10 @@ func (r Range) contains(value int) bool {
 	return value >= r.start && value <= r.end
 }
 
-func Run() {
-	input, err := os.Open("./day4/input.txt")
-
-	if err != nil {
-		panic(err)
-	}
-
-	filescanner := bufio.NewScanner(input)
-	filescanner.Split(bufio.ScanLines)
-
+func Run(lines []string) {
 	overlaps := 0
 	partialOverlaps := 0
-	for filescanner.Scan() {
-		l := filescanner.Text()
+	for _, l := range lines {
 		parts := strings.Split(l, ",")
 		elf1 := parts[0]
 		elf2 := parts[1]
