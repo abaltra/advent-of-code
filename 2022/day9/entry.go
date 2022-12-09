@@ -154,11 +154,11 @@ func (r *Rope) MoveHead(p Orientation) {
 }
 
 func Run(lines []string) {
-  headPosition := Position{}
-  tailPosition := Position{}
-  seenPositions := make(map[string]bool)
-  seenPositions["0,0"] = true
+  seenPositions := map[string]bool { "0,0": true }
   seenRopeTailPositions := map[string]bool { "0,0": true }
+
+	shortRope := Rope{}
+	shortRope.Init(2)
 
   rope := Rope{}
   rope.Init(10)
@@ -168,13 +168,10 @@ func Run(lines []string) {
     orientation := NewOrientation(parts[0])
     steps, _ := strconv.Atoi(parts[1])
     for i := 0; i < steps; i ++ {
-      headPosition.Add(orientation)
+      shortRope.MoveHead(orientation)
       rope.MoveHead(orientation)
-      seenRopeTailPositions[fmt.Sprintf("%d,%d", rope.tail.position.x, rope.tail.position.y)] = true
-      moved := tailPosition.Follow(headPosition)
-      if moved {
-      	seenPositions[fmt.Sprintf("%d,%d", tailPosition.x, tailPosition.y)] = true
-      }
+      seenRopeTailPositions[fmt.Sprintf("%s", rope.tail.position.ToString())] = true
+      seenPositions[fmt.Sprintf("%s", shortRope.tail.position.ToString())] = true
     } 
   }
 
