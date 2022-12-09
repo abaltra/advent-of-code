@@ -12,6 +12,7 @@ import (
 	"github.com/abaltra/aoc2022/day6"
 	"github.com/abaltra/aoc2022/day7"
 	"github.com/abaltra/aoc2022/day8"
+	"github.com/abaltra/aoc2022/day9"
 )
 
 func readInput(path string) []string {
@@ -43,4 +44,5 @@ func main() {
 	day6.Run()
 	day7.Run(readInput("./day7/input.txt"))
 	day8.Run(readInput("./day8/input.txt"))
+	day9.Run(readInput("./day9/input.txt"))
 }
