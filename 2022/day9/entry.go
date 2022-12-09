@@ -25,15 +25,14 @@ func (p Position) Equals(target Position) bool {
 }
 
 func (p Position) IsAdjacent(target Position) bool {
-	return p.Equals(target) ||
-					Position{ x: p.x+1, y: p.y}.Equals(target) ||
-					Position{ x: p.x-1, y: p.y}.Equals(target) ||
-					Position{ x: p.x, y: p.y+1}.Equals(target) ||
-					Position{ x: p.x, y: p.y-1}.Equals(target) ||
-					Position{ x: p.x+1, y: p.y+1}.Equals(target) ||
-					Position{ x: p.x+1, y: p.y-1}.Equals(target) ||	
-					Position{ x: p.x-1, y: p.y-1}.Equals(target) ||	
-					Position{ x: p.x-1, y: p.y+1}.Equals(target)
+	for i := -1; i < 2; i++ {
+		for j := -1; j < 2; j++ {
+			if (Position{ x: p.x + i, y: p.y + j }.Equals(target)) {
+				return true
+			}
+		}
+	}
+	return false
 }
 
 func (p *Position) Follow(target Position) bool {
