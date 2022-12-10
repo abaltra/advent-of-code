@@ -10,6 +10,7 @@ import (
 type OPFunc func(a int) int
 
 type Operation struct {
+	raw string
 	OPTYPE     string
 	cyclesLeft int
 	function   OPFunc
@@ -18,7 +19,7 @@ type Operation struct {
 
 func GetOpFromLine(line string) Operation {
 	parts := strings.Split(line, " ")
-	ret := Operation{OPTYPE: parts[0]}
+	ret := Operation{OPTYPE: parts[0], raw: line}
 	if ret.OPTYPE == "noop" {
 		ret.cyclesLeft = 1
 		ret.function = func(a int) int { return a }
@@ -31,11 +32,29 @@ func GetOpFromLine(line string) Operation {
 	return ret
 }
 
-func PrintScreen(screen []byte) {
-	for i := 0; i < 6; i++ {
-		println(string(screen[40*i : 40*i+40]))
+func PrintScreen(screen [][]byte, height int) {
+	for i := 0; i < height ; i++ {
+		println(string(screen[i]))
 	}
 	println()
+}
+
+func spriteString(xPos, sWidth int) []byte{
+
+	str := bytes.Repeat([]byte("."), sWidth)
+	if xPos >= 0 && xPos < sWidth {
+		str[xPos] = byte('#')
+	}
+
+	if xPos - 1 >= 0 && xPos - 1 < sWidth {
+		str[xPos - 1] = byte('#')
+	}
+
+	if xPos + 1 >= 0 && xPos + 1 < sWidth {
+		str[xPos + 1] = byte('#')
+	}
+
+	return str
 }
 
 func Run(lines []string) {
@@ -50,14 +69,18 @@ func Run(lines []string) {
 	signalStrengthAggregate := 0
 	meaningfulCycle := 20
 
-	// SCREEN_WIDTH := 40
-	// SCREEN_HEIGHT := 6
-	screen := bytes.Repeat([]byte("."), 240)
-	// currentScreenLine := 0
+	SCREEN_WIDTH := 40
+	SCREEN_HEIGHT := 6
+	screen := make([][]byte, SCREEN_HEIGHT)
+	for i := 0; i < SCREEN_HEIGHT; i++ {
+		screen[i] = bytes.Repeat([]byte("."), SCREEN_WIDTH)
+	}
 
 	for {
 		cycle += 1
-		// fmt.Printf("Signal at start of cycle %d: %d\n", cycle, signal)
+
+		// START CYCLE
+		// START NEW OP IF WE'RE IDLE
 		if currentOp.cyclesLeft == 0 {
 			if lIndex >= len(lines) {
 				break
@@ -66,25 +89,25 @@ func Run(lines []string) {
 			lIndex++
 		}
 
+		// DURING CYCLE
 		if cycle == meaningfulCycle {
-			fmt.Printf("Meaningfule cycle %d. Signal strength: %d\n", cycle, cycle*signal)
 			meaningfulCycle += 40
 			signalStrengthAggregate += cycle * signal
-			break
 		}
 
-		if signal-1 <= cycle && signal+1 >= cycle {
-			fmt.Printf("Drawing in cycle %d because signal is %d\n", cycle, signal)
-			screen[cycle-1] = byte('#')
+		spriteString := spriteString(signal, SCREEN_WIDTH)
+		if spriteString[(cycle - 1) % SCREEN_WIDTH] == byte('#') {
+			screen[(cycle - 1) / 40][(cycle - 1) % SCREEN_WIDTH] = byte('#')
 		}
 
+
+		// END CYCLE
 		if currentOp.cyclesLeft == 1 {
 			signal = currentOp.function(signal)
 		}
 
 		currentOp.cyclesLeft--
-		// fmt.Printf("Signal at end of cycle %d: %d\n", cycle, signal)
 	}
 	fmt.Printf("The aggregate of meaningful signal strengths is: %d\n", signalStrengthAggregate)
-	PrintScreen(screen)
+	PrintScreen(screen, SCREEN_HEIGHT)
 }
