@@ -54,7 +54,7 @@ func Run(lines []string) {
 		for _, position := range structure {
 			l += fmt.Sprintf("(%d, %d) -> ", position.x, position.y)
 		}
-		println(l)
+		//println(l)
 	}
 
 	grid := make([][]byte, largestY + 3)
@@ -127,7 +127,7 @@ func Run(lines []string) {
 
 	END: {
 		//printGrid(grid)
-		printGridWithAutomatas(grid, automata)
+		//printGridWithAutomatas(grid, automata)
 		fmt.Printf("Created %d automaton before falling into the void\n", len(automata))
 		//printGrid(grid)
 	}

@@ -8,6 +8,9 @@ import (
 	"github.com/abaltra/aoc2022/day10"
 	"github.com/abaltra/aoc2022/day11"
 	"github.com/abaltra/aoc2022/day12"
+	"github.com/abaltra/aoc2022/day13"
+	"github.com/abaltra/aoc2022/day14"
+	"github.com/abaltra/aoc2022/day15"
 	"github.com/abaltra/aoc2022/day2"
 	"github.com/abaltra/aoc2022/day3"
 	"github.com/abaltra/aoc2022/day4"
@@ -51,4 +54,7 @@ func main() {
 	day10.Run(readInput("./day10/input.txt"))
 	day11.Run()
 	day12.Run(readInput("./day12/input.txt"))
+	day13.Run(readInput("./day13/input.txt"))
+	day14.Run(readInput("./day14/input.txt"))
+	day15.Run(readInput("./day15/input.txt"))
 }
