@@ -16,6 +16,7 @@ func (r Range) contains(value int) bool {
 }
 
 func Run(lines []string) {
+	println("day4")
 	overlaps := 0
 	partialOverlaps := 0
 	for _, l := range lines {
